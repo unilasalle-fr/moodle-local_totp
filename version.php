@@ -24,7 +24,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2025100203;
 $plugin->requires = 2024100705.00;
-$plugin->supported = [405];
+$plugin->supported = [405, 500];
 $plugin->component = 'local_totp';
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = 'v0.4.0';

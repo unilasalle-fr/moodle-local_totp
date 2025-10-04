@@ -9,64 +9,80 @@
 
 /* Wrapper for the circular progress */
 .totp-circle-wrapper {
-    width: 240px;
-    height: 240px;
+  width: 240px;
+  height: 240px;
 }
 
 /* SVG circular progress ring - uses currentColor to inherit theme colors */
 .totp-progress-ring {
-    transform: rotate(-90deg); /* Start progress at top */
-    overflow: visible;
+  transform: rotate(-90deg); /* Start progress at top */
+  overflow: visible;
 }
 
 .totp-progress-ring__circle-bg {
-    opacity: 0.2; /* Light background circle */
+  opacity: 0.2; /* Light background circle */
 }
 
 .totp-progress-ring__circle {
-    transition: stroke-dashoffset 1s linear;
-    stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+  stroke-linecap: round;
 }
 
 /* TOTP code overlay - centered absolutely */
 .totp-code-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
-/* TOTP code - fixed size */
+/* TOTP code - responsive size based on digit count */
 #totp-code {
-    font-size: 3rem;
+  font-size: 3rem; /* Default for 4-6 digits */
+}
+
+#totp-code.totp-digits-7 {
+  font-size: 2.5rem; /* Slightly smaller for 7 digits */
+}
+
+#totp-code.totp-digits-8 {
+  font-size: 2.2rem; /* Even smaller for 8 digits */
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 576px) {
-    .totp-circle-wrapper {
-        width: 200px;
-        height: 200px;
-    }
+  .totp-circle-wrapper {
+    width: 200px;
+    height: 200px;
+  }
 
-    .totp-progress-ring {
-        width: 200px !important;
-        height: 200px !important;
-    }
+  .totp-progress-ring {
+    width: 200px !important;
+    height: 200px !important;
+  }
 
-    .totp-progress-ring circle {
-        r: 92px;
-        cx: 100px;
-        cy: 100px;
-    }
+  .totp-progress-ring circle {
+    r: 92px;
+    cx: 100px;
+    cy: 100px;
+  }
 
-    #totp-code {
-        font-size: 2.5rem !important;
-    }
+  #totp-code {
+    font-size: 2.5rem !important;
+  }
+
+  #totp-code.totp-digits-7 {
+    font-size: 2rem !important;
+  }
+
+  #totp-code.totp-digits-8 {
+    font-size: 1.75rem !important;
+  }
 }
 
 /* ========================================
@@ -75,50 +91,58 @@
 
 /* Popup container - fullscreen centering */
 .totp-popup-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 /* Responsive circle wrapper - uses vmin to maintain aspect ratio */
 .totp-popup-circle-wrapper {
-    position: relative;
-    width: 80vmin;
-    height: 80vmin;
-    max-width: 90vw;
-    max-height: 80vh;
+  position: relative;
+  width: 80vmin;
+  height: 80vmin;
+  max-width: 90vw;
+  max-height: 80vh;
 }
 
 /* SVG scales to container while maintaining aspect ratio */
 .totp-popup-ring {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
 }
 
 /* Code overlay centered with flexbox */
 .totp-popup-code-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
-/* Responsive font size based on container */
+/* Responsive font size based on container and digit count */
 .totp-popup-code-overlay #totp-code {
-    font-size: 12vmin;
+  font-size: 14vmin; /* Default for 4-6 digits */
+}
+
+.totp-popup-code-overlay #totp-code.totp-digits-7 {
+  font-size: 12vmin; /* Smaller for 7 digits */
+}
+
+.totp-popup-code-overlay #totp-code.totp-digits-8 {
+  font-size: 10vmin; /* Even smaller for 8 digits */
 }
 
 /* Timer below circle */
 .totp-popup-timer {
-    margin-top: 2rem;
-    font-size: 3vmin;
+  margin-top: 2rem;
+  font-size: 3vmin;
 }

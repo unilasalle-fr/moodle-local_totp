@@ -74,6 +74,7 @@ class popup_page implements renderable, templatable {
         $data->remaining = $this->remaining;
         $data->period = $this->period;
         $data->courseid = $this->courseid;
+        $data->digitcount = strlen($this->totp);
 
         // Calculate SVG circle properties (radius = 110px).
         $data->circumference = round(2 * M_PI * 110);
