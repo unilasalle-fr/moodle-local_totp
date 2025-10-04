@@ -35,10 +35,10 @@ $context = context_course::instance($courseid);
 require_login($course);
 require_capability('local/totp:view', $context);
 
-// Set up page with popup layout (no header/footer/navigation).
+// Set up page with embedded layout (minimal chrome, maximum space).
 $PAGE->set_url('/local/totp/popup.php', ['courseid' => $courseid]);
 $PAGE->set_context($context);
-$PAGE->set_pagelayout('popup');
+$PAGE->set_pagelayout('embedded');
 $PAGE->set_title(get_string('totp', 'local_totp'));
 
 // Get plugin settings.
