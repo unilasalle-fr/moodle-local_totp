@@ -1,0 +1,74 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_totp/popup_page
+
+    TOTP popup page template - fullscreen responsive
+
+    Context variables required for this template:
+    * totp - The TOTP code
+    * remaining - Remaining seconds
+    * period - Validity period in seconds
+    * courseid - Course ID
+    * circumference - SVG circle circumference
+    * dashoffset - SVG stroke-dashoffset for progress
+
+    Example context (json):
+    {
+        "totp": "123456",
+        "remaining": 25,
+        "period": 30,
+        "courseid": 2,
+        "circumference": 691,
+        "dashoffset": 115
+    }
+}}
+<div class="totp-popup-container" data-courseid="{{courseid}}" data-period="{{period}}" data-circumference="{{circumference}}">
+    <div class="totp-popup-circle-wrapper">
+        <svg class="totp-popup-ring" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet">
+            <circle class="totp-progress-ring__circle-bg text-secondary"
+                    stroke="currentColor"
+                    stroke-width="8"
+                    fill="transparent"
+                    r="110"
+                    cx="120"
+                    cy="120"/>
+            <circle id="totp-progress-circle"
+                    class="totp-progress-ring__circle text-primary"
+                    stroke="currentColor"
+                    stroke-width="8"
+                    fill="transparent"
+                    r="110"
+                    cx="120"
+                    cy="120"
+                    style="stroke-dasharray: {{circumference}} {{circumference}}; stroke-dashoffset: {{dashoffset}};"/>
+        </svg>
+        <div class="totp-popup-code-overlay">
+            <div id="totp-code" class="fw-bold font-monospace">{{totp}}</div>
+        </div>
+    </div>
+
+    <div class="totp-popup-timer text-muted">
+        <span id="totp-remaining">{{remaining}}</span> {{#str}}secondsremaining, local_totp{{/str}}
+    </div>
+</div>
+
+{{#js}}
+require(['local_totp/totp_refresh'], function(TotpRefresh) {
+    TotpRefresh.init({{courseid}}, {{period}}, {{circumference}});
+});
+{{/js}}
